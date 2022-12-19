@@ -3,4 +3,4 @@ kind: BlockDevice
 metadata:
   name: blockdevice-sample
 spec:
-  # TODO(user): Add fields here
+  name: sda

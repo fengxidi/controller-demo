@@ -25,11 +25,14 @@ import (
 
 // BlockDeviceSpec defines the desired state of BlockDevice
 type BlockDeviceSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of BlockDevice. Edit blockdevice_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// 设备名称
+	Name string `json:"name,omitempty"`
+	// 设备所在节点
+	Node string `json:"node,omitempty"`
+	// 大小
+	Size int64 `json:"size,omitempty"`
+	// 类型
+	Tyep string `json:"type,omitempty"`
 }
 
 // BlockDeviceStatus defines the observed state of BlockDevice
