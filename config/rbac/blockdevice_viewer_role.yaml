@@ -1,0 +1,20 @@
+# permissions for end users to view blockdevices.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: blockdevice-viewer-role
+rules:
+- apiGroups:
+  - suxueit.com
+  resources:
+  - blockdevices
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - suxueit.com
+  resources:
+  - blockdevices/status
+  verbs:
+  - get

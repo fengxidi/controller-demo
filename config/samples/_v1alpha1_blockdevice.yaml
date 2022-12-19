@@ -1,0 +1,6 @@
+apiVersion: suxueit.com/v1alpha1
+kind: BlockDevice
+metadata:
+  name: blockdevice-sample
+spec:
+  # TODO(user): Add fields here

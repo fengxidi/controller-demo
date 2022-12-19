@@ -1,0 +1,14 @@
+domain: suxueit.com
+layout:
+- go.kubebuilder.io/v3
+projectName: controller-demo
+repo: controller-demo
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: suxueit.com
+  kind: BlockDevice
+  path: controller-demo/api/v1alpha1
+  version: v1alpha1
+version: "3"
