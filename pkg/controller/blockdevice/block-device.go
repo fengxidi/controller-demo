@@ -358,6 +358,7 @@ func (ctrl blockDeviceController) UpdateBlockDeviceStatus(device *block.BlockDev
 }
 
 func (ctrl blockDeviceController) CreateOrUpdateBlockDevice(name, devType, size string) error {
+	klog.Infof("同步 %s 设备 %s", NodeName, name)
 
 	deviceName := fmt.Sprintf("%s-%s", NodeName, name)
 	BlockDeviceManager[deviceName] = Device{Name: name, Type: devType, Size: size}
@@ -377,6 +378,7 @@ func (ctrl blockDeviceController) CreateOrUpdateBlockDevice(name, devType, size 
 
 		return ctrl.UpdateBlockDevice(newDev)
 	}
+	klog.Infof("同步 %s 设备 %s 成功", NodeName, name)
 
 	return nil
 }
@@ -384,6 +386,7 @@ func (ctrl blockDeviceController) CreateOrUpdateBlockDevice(name, devType, size 
 // 同步 节点上的设备到 k8s 资源
 func (ctrl blockDeviceController) SyncNodeBlockDevice() {
 	// 获取块设备的路径
+	klog.Info("同步块设备...")
 	devicePathList := AllDevicePath()
 	// 通过读取块设备路径下的文件，获取设备信息
 	nameList := []string{}
