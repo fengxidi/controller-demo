@@ -32,7 +32,7 @@ import (
 // BlockDevicesGetter has a method to return a BlockDeviceInterface.
 // A group's client should implement this interface.
 type BlockDevicesGetter interface {
-	BlockDevices(namespace string) BlockDeviceInterface
+	BlockDevices() BlockDeviceInterface
 }
 
 // BlockDeviceInterface has methods to work with BlockDevice resources.
@@ -52,14 +52,12 @@ type BlockDeviceInterface interface {
 // blockDevices implements BlockDeviceInterface
 type blockDevices struct {
 	client rest.Interface
-	ns     string
 }
 
 // newBlockDevices returns a BlockDevices
-func newBlockDevices(c *SuxueitV1alpha1Client, namespace string) *blockDevices {
+func newBlockDevices(c *SuxueitV1alpha1Client) *blockDevices {
 	return &blockDevices{
 		client: c.RESTClient(),
-		ns:     namespace,
 	}
 }
 
@@ -67,7 +65,6 @@ func newBlockDevices(c *SuxueitV1alpha1Client, namespace string) *blockDevices {
 func (c *blockDevices) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.BlockDevice, err error) {
 	result = &v1alpha1.BlockDevice{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -84,7 +81,6 @@ func (c *blockDevices) List(ctx context.Context, opts v1.ListOptions) (result *v
 	}
 	result = &v1alpha1.BlockDeviceList{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -101,7 +97,6 @@ func (c *blockDevices) Watch(ctx context.Context, opts v1.ListOptions) (watch.In
 	}
 	opts.Watch = true
 	return c.client.Get().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -112,7 +107,6 @@ func (c *blockDevices) Watch(ctx context.Context, opts v1.ListOptions) (watch.In
 func (c *blockDevices) Create(ctx context.Context, blockDevice *v1alpha1.BlockDevice, opts v1.CreateOptions) (result *v1alpha1.BlockDevice, err error) {
 	result = &v1alpha1.BlockDevice{}
 	err = c.client.Post().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(blockDevice).
@@ -125,7 +119,6 @@ func (c *blockDevices) Create(ctx context.Context, blockDevice *v1alpha1.BlockDe
 func (c *blockDevices) Update(ctx context.Context, blockDevice *v1alpha1.BlockDevice, opts v1.UpdateOptions) (result *v1alpha1.BlockDevice, err error) {
 	result = &v1alpha1.BlockDevice{}
 	err = c.client.Put().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		Name(blockDevice.Name).
 		VersionedParams(&opts, scheme.ParameterCodec).
@@ -140,7 +133,6 @@ func (c *blockDevices) Update(ctx context.Context, blockDevice *v1alpha1.BlockDe
 func (c *blockDevices) UpdateStatus(ctx context.Context, blockDevice *v1alpha1.BlockDevice, opts v1.UpdateOptions) (result *v1alpha1.BlockDevice, err error) {
 	result = &v1alpha1.BlockDevice{}
 	err = c.client.Put().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		Name(blockDevice.Name).
 		SubResource("status").
@@ -154,7 +146,6 @@ func (c *blockDevices) UpdateStatus(ctx context.Context, blockDevice *v1alpha1.B
 // Delete takes name of the blockDevice and deletes it. Returns an error if one occurs.
 func (c *blockDevices) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		Name(name).
 		Body(&opts).
@@ -169,7 +160,6 @@ func (c *blockDevices) DeleteCollection(ctx context.Context, opts v1.DeleteOptio
 		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("blockdevices").
 		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -182,7 +172,6 @@ func (c *blockDevices) DeleteCollection(ctx context.Context, opts v1.DeleteOptio
 func (c *blockDevices) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.BlockDevice, err error) {
 	result = &v1alpha1.BlockDevice{}
 	err = c.client.Patch(pt).
-		Namespace(c.ns).
 		Resource("blockdevices").
 		Name(name).
 		SubResource(subresources...).

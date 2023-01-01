@@ -39,7 +39,7 @@ bash "${CODEGEN_PKG}"/generate-groups.sh "deepcopy,client,lister,informer" \
     --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt -v=4
 
 #####################样例 start##################################
-# bash ./hack/update_codegen.sh controller-demo device:v1alpha1
+
 #注意事项：
 #MODULE需和go.mod文件内容一致
 #"${CODEGEN_PKG}"/generate-groups.sh "deepcopy,client,informer,lister" \

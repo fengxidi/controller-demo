@@ -20,7 +20,3 @@ package v1alpha1
 // BlockDeviceListerExpansion allows custom methods to be added to
 // BlockDeviceLister.
 type BlockDeviceListerExpansion interface{}
-
-// BlockDeviceNamespaceListerExpansion allows custom methods to be added to
-// BlockDeviceNamespaceLister.
-type BlockDeviceNamespaceListerExpansion interface{}

@@ -28,8 +28,8 @@ type FakeSuxueitV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeSuxueitV1alpha1) BlockDevices(namespace string) v1alpha1.BlockDeviceInterface {
-	return &FakeBlockDevices{c, namespace}
+func (c *FakeSuxueitV1alpha1) BlockDevices() v1alpha1.BlockDeviceInterface {
+	return &FakeBlockDevices{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

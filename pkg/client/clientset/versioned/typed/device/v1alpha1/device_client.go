@@ -35,8 +35,8 @@ type SuxueitV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *SuxueitV1alpha1Client) BlockDevices(namespace string) BlockDeviceInterface {
-	return newBlockDevices(c, namespace)
+func (c *SuxueitV1alpha1Client) BlockDevices() BlockDeviceInterface {
+	return newBlockDevices(c)
 }
 
 // NewForConfig creates a new SuxueitV1alpha1Client for the given config.

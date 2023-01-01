@@ -13,9 +13,28 @@ spec:
     listKind: BlockDeviceList
     plural: blockdevices
     singular: blockdevice
-  scope: Namespaced
+  scope: Cluster
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - jsonPath: .spec.name
+      name: deviceName
+      type: string
+    - jsonPath: .spec.size
+      name: size
+      type: string
+    - jsonPath: .spec.node
+      name: NodeName
+      type: string
+    - jsonPath: .spec.type
+      name: Type
+      type: string
+    - jsonPath: .status.status
+      name: Status
+      type: string
+    - jsonPath: .status.lastUpdateTIme
+      name: updateTime
+      type: string
+    name: v1alpha1
     schema:
       openAPIV3Schema:
         description: BlockDevice is the Schema for the blockdevices API
@@ -42,15 +61,22 @@ spec:
                 description: 设备所在节点
                 type: string
               size:
-                description: 大小
-                format: int64
-                type: integer
+                description: 块设备容量
+                type: string
               type:
                 description: 类型
                 type: string
             type: object
           status:
             description: BlockDeviceStatus defines the observed state of BlockDevice
+            properties:
+              lastUpdateTIme:
+                description: 设备最后更新实际
+                format: date-time
+                type: string
+              status:
+                description: 设备状态
+                type: string
             type: object
         type: object
     served: true

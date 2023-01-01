@@ -40,5 +40,5 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 
 // BlockDevices returns a BlockDeviceInformer.
 func (v *version) BlockDevices() BlockDeviceInformer {
-	return &blockDeviceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &blockDeviceInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
